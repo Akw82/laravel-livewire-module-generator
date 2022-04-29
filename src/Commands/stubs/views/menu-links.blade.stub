@@ -1,0 +1,2 @@
+['route' => '{{ route }}', 'name' => '{{ name }}', 'icon' => 'fa fa-info', 'permission' => '{{ permission }}' ],
+];

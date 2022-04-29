@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Observers;
+
+use App\Models\{{ model }};
+
+class {{ model }}Observer
+{
+    /**
+     * Handle the {{ model }} "created" event.
+     *
+     * @param  \App\Models\{{ model }}  ${{ modelVariable }}
+     * @return void
+     */
+    public function created({{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->logs()->create(${{ modelVariable }}->toArray());
+    }
+
+    /**
+     * Handle the {{ model }} "updated" event.
+     *
+     * @param  \App\Models\{{ model }}  ${{ modelVariable }}
+     * @return void
+     */
+    public function updated({{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->logs()->create(${{ modelVariable }}->toArray());
+    }
+
+    /**
+     * Handle the {{ model }} "deleted" event.
+     *
+     * @param  \App\Models\{{ model }}  ${{ modelVariable }}
+     * @return void
+     */
+    public function deleted({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ model }} "restored" event.
+     *
+     * @param  \App\Models\{{ model }}  ${{ modelVariable }}
+     * @return void
+     */
+    public function restored({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ model }} "force deleted" event.
+     *
+     * @param  \App\Models\{{ model }}  ${{ modelVariable }}
+     * @return void
+     */
+    public function forceDeleted({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}

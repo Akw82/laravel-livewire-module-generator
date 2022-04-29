@@ -1,0 +1,216 @@
+<div>
+
+    <div class="py-2">
+        <div class="mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+
+                <div class="px-4 py-2 sm:px-10 bg-white border-b border-gray-200">
+                    <div class="sm:flex items-center justify-between">
+                        <div class="flex items-center">
+                            <h1 class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
+                               <a href="{{ route('{{ index }}') }}"> {{ module }} </a>
+                            </h1>
+                        </div>
+                        <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-600 hover:bg-indigo-600 focus:outline-none rounded">
+                            <a href="{{ route('{{ create }}') }}" class="text-sm font-medium leading-none text-white"> + Create </a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="px-5 py-4 bg-white border-b border-gray-200">
+
+                    <x-advanced-filter :visible="$showFilters">
+
+                        <x-slot name="filters">
+
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="input-group">
+                                        <input wire:model.debounce.1s="filters.search" class="form-control" type="text" placeholder="Search .." />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </x-slot>
+
+                    </x-advanced-filter>
+
+
+                    <div class="mt-6 text-gray-500">
+                        <x-table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-md">
+                            <x-slot name="head">
+                                <x-table.heading>#</x-table.heading>
+                                <x-table.heading>Title</x-table.heading>
+                                <x-table.heading>Content</x-table.heading>
+                                <x-table.heading>Created</x-table.heading>
+                                <x-table.heading>Updated</x-table.heading>
+                            </x-slot>
+
+                            <x-slot name="body">
+
+                                @forelse ($collections as $collection)
+
+                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="{{$collection->id}}">
+
+                                    <x-table.cell> {{ $collection->id }} </x-table.cell>
+
+                                    <x-table.cell>
+                                        <div class="max-w-sm mx-auto rounded-xl space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+                                            <div class="text-center space-y-2 sm:text-left">
+                                                <div class="space-y-0.5">
+                                                    <p class="text-lg text-black font-semibold">
+                                                        {{ $collection->title }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex items-center">
+
+                                                    <button id="theme-toggle" wire:click="confirmDeletion({{$collection}})" data-tooltip-target="tooltip-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </button>
+
+                                                    <a href="{{ route('{{ edit }}', $collection) }}">
+                                                        <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                            </svg>
+                                                        </button>
+                                                    </a>
+
+                                                    <button id="theme-toggle" wire:click="viewingLog({{$collection}})" data-tooltip-target="tooltip-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-ellipsis-500" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </x-table.cell>
+
+                                    <x-table.cell> {{ $collection->content }} </x-table.cell>
+
+                                    <x-table.cell>
+                                        {{ \Carbon\Carbon::parse($collection->created_at)->format('d-m-Y H:i') }}
+                                        <br>
+                                        {{ \Carbon\Carbon::parse($collection->created_at)->diffForHumans() }}
+                                    </x-table.cell>
+
+                                    <x-table.cell>
+                                        {{ \Carbon\Carbon::parse($collection->updated_at)->format('d-m-Y H:i') }}
+                                        <br>
+                                        {{ \Carbon\Carbon::parse($collection->updated_at)->diffForHumans() }}
+                                    </x-table.cell>
+
+                                </x-table.row>
+
+                                @empty
+                                <x-table.row>
+                                    <x-table.cell scope="col" colspan="10" class="text-nowrap pr-0 text-center fs-1" wire:loading.class.delay="opacity-50">Sorry, no result found.</x-table.cell>
+                                </x-table.row>
+                                @endforelse
+
+                            </x-slot>
+
+                        </x-table>
+                    </div>
+                </div>
+
+                <div class="my-3  sm:px-20">
+                    {{ $collections->links() }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Viewing Log Modal -->
+    <x-jet-dialog-modal wire:model.defer="viewingLog" maxWidth="2xl">
+        <x-slot name="title">
+            {{ __('View Log') }}
+        </x-slot>
+        <x-slot name="content">
+            @if($logs)
+
+            <x-table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-md">
+                <x-slot name="head">
+                    <x-table.heading>#</x-table.heading>
+                    <x-table.heading>Title</x-table.heading>
+                    <x-table.heading>Content</x-table.heading>
+                    <x-table.heading>Created</x-table.heading>
+                    <x-table.heading>Updated</x-table.heading>
+                </x-slot>
+                <x-slot name="body">
+                    @forelse ($logs as $log)
+                    <x-table.row wire:loading.class.delay="opacity-50" wire:key="log{{$log->id}}">
+                        <x-table.cell> {{ $log->id }} </x-table.cell>
+                        <x-table.cell> {{ $log->title }} </x-table.cell>
+                        <x-table.cell> {{ $log->content }} </x-table.cell>
+
+                        <x-table.cell>
+                            {{ \Carbon\Carbon::parse($log->created_at)->format('d-m-Y H:i') }}
+                            <br>
+                            {{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}
+                        </x-table.cell>
+
+                        <x-table.cell>
+                            {{ \Carbon\Carbon::parse($log->updated_at)->format('d-m-Y H:i') }}
+                            <br>
+                            {{ \Carbon\Carbon::parse($log->updated_at)->diffForHumans() }}
+                        </x-table.cell>
+                    </x-table.row>
+                    @empty
+                    <x-table.row>
+                        <x-table.cell scope="col" colspan="10" class="text-nowrap pr-0 text-center fs-1" wire:loading.class.delay="opacity-50">Sorry, no result found.</x-table.cell>
+                    </x-table.row>
+                    @endforelse
+                </x-slot>
+            </x-table>
+
+            @endif
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('viewingLog')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+
+
+
+
+    <!-- Delete User Confirmation Modal -->
+    <x-jet-dialog-modal wire:model.defer="showDeleteModel">
+        <x-slot name="title">
+            {{ __('Delete') }}
+        </x-slot>
+
+        <x-slot name="content">
+            {{ __('Are you sure you want to delete your account?') }}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('showDeleteModel', false)" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button class="ml-3" wire:click="delete({{ $deleteItem }})" wire:loading.attr="disabled">
+                {{ __('Delete') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+</div>

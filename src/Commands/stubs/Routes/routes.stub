@@ -1,0 +1,15 @@
+
+
+
+/*
+* {{ module }}
+*/
+Route::prefix('{{ name }}')
+    ->namespace('\App\Http\Livewire\{{ class }}')
+    ->name('{{ name }}.')
+    ->group(function () {
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Create::class)->name('create');
+        Route::get('/{{{ class }}}/edit', Create::class)->name('edit');
+        Route::get('/{{{ class }}}/log', Create::class)->name('log');
+});

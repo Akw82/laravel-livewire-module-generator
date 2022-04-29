@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Http\Livewire\{{ model }};
+
+use App\Models\{{ model }};
+use Livewire\Component;
+
+class Create extends Component
+{
+
+    public $title;
+    public $content;
+    public $editable = false;
+    public $response_message, $response_state = '';
+
+
+    /**
+     * define rules dynamically and substitute the 
+     * $rules property for the rules() method on the component
+     */
+    protected function rules()
+    {
+
+        $array = [];
+        $array['title'] = 'required|string|min:4';
+        $array['content'] = 'required|string|max:500';
+        return $array;
+    }
+
+
+    /**
+     * construct to the component and injects the model binding.
+     * this method is only called once on the initialization to 
+     * set up initial values.
+     */
+    public function mount({{ model }} ${{ model }})
+    { 
+        if (${{ model }}->exists) {
+            $this->title = ${{ model }}->title;
+            $this->content = ${{ model }}->content;
+            $this->editable = ${{ model }};
+        }
+    }
+
+
+    /**
+     * save form data.
+     */
+    public function save()
+    {
+
+        $this->validate();
+
+        if ($this->editable) {
+            $this->editable->title = $this->title;
+            $this->editable->content = $this->content;
+            if ($this->editable->save()) {
+                $this->response_state = 'SUCCESS!';
+                $this->response_message = $this->title . ' has updated successfully.';
+            }
+        } else {
+
+            $item = new {{ model }};
+            $item->title = $this->title;
+            $item->content = $this->content;
+            if ($item->save()) {
+                $this->response_state = 'SUCCESS!';
+                $this->response_message = $this->title . ' has created successfully.';
+                $this->reset('title', 'content');
+            }
+        }
+    }
+
+
+    /**
+     * Note: This method gets called on the initial page load 
+     * AND every subsequent component update.
+     * 
+     * Render method is expected to return a blade view.
+     */
+    public function render()
+    {
+        return view('livewire.{{ view }}.create');
+    }
+}

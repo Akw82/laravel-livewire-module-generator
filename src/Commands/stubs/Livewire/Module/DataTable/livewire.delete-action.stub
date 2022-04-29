@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Livewire\{{ model }}\DataTable;
+
+use App\Models\{{ model }};
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Request;
+
+trait WithDeleteAction
+{
+
+    /**
+     * Indicates if deletion is being confirmed.
+     *
+     * @var bool
+     */
+    public $showDeleteModel = false;
+    public $deleteItem = "";
+
+
+    /**
+     * Confirm that the user would like to delete this record.
+     *
+     * @return void
+     */
+    public function confirmDeletion({{ model }} $deleteItem)
+    {
+        $this->resetErrorBag();
+
+        $this->showDeleteModel = true;
+        $this->deleteItem = $deleteItem;
+    }
+
+
+    /**
+     * Delete the selected record.
+     */
+    public function delete(Request $request, {{ model }} $deleter, StatefulGuard $auth)
+    {
+
+        // $team = $auth->user()->currentTeam;
+        // $request->user()->teamPermissions($team);
+        // $auth->user()->hasTeamPermission($server->team, 'server:update');
+
+        $this->resetErrorBag();
+
+        // if (!Hash::check($this->password, Auth::user()->password)) {
+        //     throw ValidationException::withMessages([
+        //         'password' => [__('This password does not match our records.')],
+        //     ]);
+        // }
+
+        if ($deleter->delete()) {
+            $this->showDeleteModel = false;
+            $this->dispatchBrowserEvent('deleted-event');
+        }
+    }
+}

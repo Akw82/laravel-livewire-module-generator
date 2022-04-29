@@ -1,0 +1,73 @@
+<div>
+
+    <div class="py-2">
+        <div class="mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+
+                <div class="px-6 py-2 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="sm:flex items-center justify-between">
+                        <div class="flex items-center">
+                            <h1 class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
+                                 <a href="{{ route('{{ index }}') }}"> {{ module }} </a>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+
+                    <form wire:submit.prevent="save" class="needs-validation">
+
+                        <div class="mb-6">
+                            <label for="title" class="block mb-2 text-md font-bold text-gray-900 dark:text-gray-500"> Title </label>
+                            <input wire:model.lazy='title' type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @error('title') <div class="text-red-600 mt-2">{{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="content" class="block mb-2 text-md font-bold text-gray-900 dark:text-gray-500">Content</label>
+                            <textarea wire:model.lazy="content" type="text" id="content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            @error('content') <div class="text-red-600 mt-2">{{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="py-1 text-white bg-indigo-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-60 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+                        @if($response_message)
+                        <div class="bg-teal-100 mt-4 border-t-4 border-teal-500 text-teal-900 px-4 py-3 shadow-md rounded-lg" role="alert">
+                            <div class="flex">
+                                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                                    </svg></div>
+                                <div>
+                                    <p class="font-bold">{{ $response_state }}</p>
+                                    <p class="text-sm">{{ $response_message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@push('script')
+<script>
+    window.addEventListener('demo', event => {
+        toastr.success(event.detail.message);
+    });
+
+    window.addEventListener('form-saved-notification', event => {
+        toastr.success(event.detail.message);
+    });
+</script>
+@endpush

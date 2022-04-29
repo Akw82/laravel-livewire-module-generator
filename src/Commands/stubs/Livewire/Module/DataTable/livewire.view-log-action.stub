@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Livewire\{{ model }}\DataTable;
+
+use App\Models\{{ model }};
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Request;
+
+trait WithViewLogAction
+{
+
+    /**
+     * Indicates if log is being viewed.
+     *
+     * @var bool
+     */
+    public $viewingLog = false;
+    public $logs = [];
+
+
+    /**
+     * Viewing the log.
+     *
+     * @return void
+     */
+    public function viewingLog({{ model }} ${{ model }})
+    {
+        $this->viewingLog = true;
+        $this->logs = ${{ model }}->logs;
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "akw82/module-generator",
+    "description": "create a module containing everything you want for a starter module.",
+    "license": "MIT",
+    "keywords": ["laravel", "laravel module generator"],
+    "autoload": {
+        "psr-4": {
+            "Akw82\\ModuleGenerator\\": "src/"
+        }
+    },
+    "extra": {
+          "laravel": {
+		"providers": ["Akw82\\ModuleGenerator\\GenerateModuleServiceProvider"]
+	}
+    },
+    "authors": [
+        {
+            "name": "Mohamed Akram",
+            "email": "akw82@outlook.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
