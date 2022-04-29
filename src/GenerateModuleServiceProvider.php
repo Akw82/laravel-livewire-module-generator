@@ -1,15 +1,15 @@
 <?php
 
-namespace Akw82\LaravelLivewireModuleGenerator\Commands;
+namespace Akw82\LaravelLivewireModuleGenerator;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider;
-use Akw82\ModuleGenerator\Commands\GenerateCommand;
-use Akw82\ModuleGenerator\Commands\GenerateModel;
-use Akw82\ModuleGenerator\Commands\GenerateMigration;
-use Akw82\ModuleGenerator\Commands\GenerateObserver;
-use Akw82\ModuleGenerator\Commands\GenerateView;
-use Akw82\ModuleGenerator\Commands\GenerateRoute;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateCommand;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateModel;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateMigration;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateObserver;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateView;
+use Akw82\LaravelLivewireModuleGenerator\Commands\GenerateRoute;
 
 class GenerateModuleServiceProvider extends ServiceProvider
 {
