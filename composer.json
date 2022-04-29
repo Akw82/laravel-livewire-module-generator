@@ -1,16 +1,16 @@
 {
-    "name": "akw82/module-generator",
+    "name": "akw82/laravel-livewire-module-generator",
     "description": "create a module containing everything you want for a starter module.",
     "license": "MIT",
-    "keywords": ["laravel", "laravel module generator"],
+    "keywords": ["laravel", "livewire", "laravel livewire module generator"],
     "autoload": {
         "psr-4": {
-            "Akw82\\ModuleGenerator\\": "src/"
+            "Akw82\\LaravelLivewireModuleGenerator\\": "src/"
         }
     },
     "extra": {
           "laravel": {
-		"providers": ["Akw82\\ModuleGenerator\\GenerateModuleServiceProvider"]
+		"providers": ["Akw82\\LaravelLivewireModuleGenerator\\GenerateModuleServiceProvider"]
 	}
     },
     "authors": [
@@ -20,5 +20,13 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": "^8.0.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^9.2",
+        "laravel/jetstream": "^2.6",
+        "laravel/sanctum": "^2.14.1",
+        "laravel/tinker": "^2.7",
+        "livewire/livewire": "^2.5"
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModuleGenerator;
+namespace Akw82\LaravelLivewireModuleGenerator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider;
@@ -13,15 +13,6 @@ use Akw82\ModuleGenerator\Commands\GenerateRoute;
 
 class GenerateModuleServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
 
     /**
      * Bootstrap services.

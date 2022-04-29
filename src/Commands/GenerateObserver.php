@@ -1,6 +1,6 @@
 <?php
 
-namespace Akw82\ModuleGenerator\Commands;
+namespace Akw82\LaravelLivewireModuleGenerator\Commands;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
