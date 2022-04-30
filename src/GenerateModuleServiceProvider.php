@@ -4,7 +4,7 @@ namespace Akw82\LaravelLivewireModuleGenerator;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider;
-use Akw82\LaravelLivewireModuleGenerator\Commands{
+use Akw82\LaravelLivewireModuleGenerator\Commands\{
     GenerateCommand,
     GenerateModel,
     GenerateMigration,
