@@ -79,7 +79,8 @@ abstract class GenerateContent extends Command
         if (!is_dir($module_path)) mkdir($module_path, 0777, true);
 
         return [
-            'stub' => __DIR__ . '/stubs/' . $stub,
+            // 'stub' => __DIR__ . '/stubs/' . $stub,
+            'stub' =>  config('module_generator.stub_directory') . $stub,
             'path' => $module_path . '/' . $file_name,
         ];
     }
@@ -235,7 +236,7 @@ abstract class GenerateContent extends Command
     {
 
         // reading / opening stub file content
-        $file_content = $this->get(__DIR__ . '/stubs/' . $stub);
+        $file_content = $this->get(config('module_generator.stub_directory') . $stub);
 
         $file_content = $this->populateData($replace_strings, $file_content);
 
