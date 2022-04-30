@@ -11,6 +11,7 @@ use Akw82\LaravelLivewireModuleGenerator\Commands\{
     GenerateObserver,
     GenerateView,
     GenerateRoute,
+    GenerateNavigation,
 };
 
 class GenerateModuleServiceProvider extends ServiceProvider
@@ -38,6 +39,7 @@ class GenerateModuleServiceProvider extends ServiceProvider
                 GenerateObserver::class,    // generate:observer
                 GenerateView::class,        // generate:view
                 GenerateRoute::class,       // generate:route
+                GenerateNavigation::class   // generate:navigation
             ]);
 
             /**

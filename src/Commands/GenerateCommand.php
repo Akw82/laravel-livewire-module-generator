@@ -53,6 +53,12 @@ class GenerateCommand extends Command
         // generate routes
         $this->call("generate:route", ['name' => $name]);
 
+        // clear the cache
+        $this->call("optimize");
+
+        // generate navigation
+        $this->call("generate:navigation", ['name' => $name]);
+
         $output->writeln("<options=bold,reverse;fg=green> NEW MODULE CREATED </> 🤙 ");
     }
 }

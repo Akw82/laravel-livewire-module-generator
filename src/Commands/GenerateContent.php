@@ -79,7 +79,6 @@ abstract class GenerateContent extends Command
         if (!is_dir($module_path)) mkdir($module_path, 0777, true);
 
         return [
-            // 'stub' => __DIR__ . '/stubs/' . $stub,
             'stub' =>  config('module_generator.stub_directory') . $stub,
             'path' => $module_path . '/' . $file_name,
         ];

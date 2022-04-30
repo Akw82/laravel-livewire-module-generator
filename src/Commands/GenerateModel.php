@@ -56,6 +56,7 @@ class GenerateModel extends GenerateContent
      */
     public function handle()
     {
+
         $output = new ConsoleOutput();
         $output->writeln("<options=bold,reverse;fg=green> Executing generate:model command... </>");
 
