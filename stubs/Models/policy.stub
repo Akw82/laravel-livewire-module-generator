@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Policies;
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use app\Models\{{ model }};
+use app\Models\User;
+
+class {{ model }}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \app\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny(User $user)
+    {
+        return $user->can('view_{{ lower_snake_case }}');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \app\Models\User  $user
+     * @param  \app\Models\{{ model }}  ${{ model }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user, {{ model }} ${{ model }})
+    {
+        return $this->update($user, ${{ model }});
+    }
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \app\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        return $user->can('create_{{ lower_snake_case }}');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \app\Models\User  $user
+     * @param  \app\Models\{{ model }}  ${{ model }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user, {{ model }} ${{ model }})
+    {
+        return $user->can('edit_{{ lower_snake_case }}');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \app\Models\User  $user
+     * @param  \app\Models\{{ model }}  ${{ model }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(User $user, {{ model }} ${{ model }})
+    {
+        return $user->can('delete_{{ lower_snake_case }}');
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \app\Models\User  $user
+     * @param  \app\Models\{{ model }}  ${{ model }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, {{ model }} ${{ model }})
+    {
+        return $user->can('restore_{{ lower_snake_case }}');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \app\Models\User  $user
+     * @param  \app\Models\{{ model }}  ${{ model }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete(User $user, {{ model }} ${{ model }})
+    {
+        return $user->can('force_delete_{{ lower_snake_case }}');
+    }
+}

@@ -12,6 +12,7 @@ use Akw82\LaravelLivewireModuleGenerator\Commands\{
     GenerateView,
     GenerateRoute,
     GenerateNavigation,
+    GeneratePolicy,
 };
 
 class GenerateModuleServiceProvider extends ServiceProvider
@@ -39,16 +40,23 @@ class GenerateModuleServiceProvider extends ServiceProvider
                 GenerateObserver::class,    // generate:observer
                 GenerateView::class,        // generate:view
                 GenerateRoute::class,       // generate:route
-                GenerateNavigation::class   // generate:navigation
+                GenerateNavigation::class,  // generate:navigation
+                GeneratePolicy::class       // generate:policy
             ]);
 
             /**
              * creating a module_generator.php file in the /config directory.
-             * php artisan vendor:publish --provider="Akw82\LaravelLivewireModuleGenerator\GenerateModuleServiceProvider" --tag="config"
              */
             $this->publishes([
                 __DIR__ . '/../config/module_generator.php' => config_path('module_generator.php'),
             ], 'config');
+
+            /**
+             * publishing all the required components.
+             */
+            $this->publishes([
+                __DIR__ . '/../resources/views/components' => resource_path('views/components')
+            ], 'components');
         }
     }
 

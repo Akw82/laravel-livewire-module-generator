@@ -68,6 +68,17 @@ abstract class GenerateContent extends Command
 
 
     /**
+     * Get the module name
+     * Example: two word
+     * @return string
+     */
+    protected function getModuleNameLowerCase()
+    {
+        return Str::of($this->argument('name'))->replace('_', ' ')->lower();
+    }
+
+
+    /**
      * Fetch stub file and the destination file path.
      * @param  string  $file
      * @param  string  $type
@@ -179,23 +190,49 @@ abstract class GenerateContent extends Command
 
 
     /**
+     * Search from the content file.
+     *
+     * @param  string  $path
+     * @param  string  $search
+     * @param  string  $replace
+     * @return string
+     *
+     */
+    public function search($path, $search,  $replace)
+    {
+        $contents = file_get_contents($path);
+        $offset = strpos($contents, $search);
+
+        return ($offset && !strpos($contents, $replace)) ?? true;
+    }
+
+
+
+    /**
      * append content to given file
      *
-     * @param  string  $file
+     * @param  string  $path
      * @param  string  $search
      * @param  string  $replace
      * @return string
      */
-    protected function appendContent(string $file, string $search, string $replace)
+    protected function appendContent(string $path, string $search, string $replace)
     {
-        $contents = file_get_contents($file);
+        $contents = file_get_contents($path);
 
         $offset = strpos($contents, $search);
 
-        if ($offset && !strpos($contents, $replace)) {
-            $new_content = substr_replace($contents, $search . $replace, $offset, strlen($search));
-            // save file
-            file_put_contents($file, $new_content);
+        if ($offset) {
+
+            if (!strpos($contents, $replace)) {
+
+                $new_content = substr_replace($contents, $search . $replace, $offset, strlen($search));
+                // save file
+                file_put_contents($path, $new_content);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -215,7 +252,7 @@ abstract class GenerateContent extends Command
         // searching and replacing with the given names
         if ($replace_strings) {
             foreach ($replace_strings as $search => $replace) {
-                $file_content = str_replace('{{ ' . $search . ' }}', $replace, $file_content);
+                $file_content = str_replace(['{{ ' . $search . ' }}', '{{' . $search . '}}',], $replace, $file_content);
             }
         }
 
@@ -235,9 +272,7 @@ abstract class GenerateContent extends Command
     {
 
         // reading / opening stub file content
-        $file_content = $this->get(config('module_generator.stub_directory') . $stub);
-
-        $file_content = $this->populateData($replace_strings, $file_content);
+        $file_content = $this->populateData($replace_strings, $this->get(config('module_generator.stub_directory') . $stub));
 
         file_put_contents(base_path('routes/web.php'), $file_content, FILE_APPEND);
 

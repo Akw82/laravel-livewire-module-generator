@@ -3,7 +3,6 @@
 namespace Akw82\LaravelLivewireModuleGenerator\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class GenerateCommand extends Command
@@ -17,13 +16,6 @@ class GenerateCommand extends Command
      */
     protected $signature = 'generate:module {name : provide name of the module. }';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate a new module';
-
 
     /**
      * Execute the console command.
@@ -32,6 +24,7 @@ class GenerateCommand extends Command
      */
     public function handle()
     {
+
 
         $output = new ConsoleOutput();
 
@@ -53,8 +46,12 @@ class GenerateCommand extends Command
         // generate routes
         $this->call("generate:route", ['name' => $name]);
 
+        // generate policy
+        $this->call("generate:policy", ['name' => $name]);
+
         // clear the cache
         $this->call("optimize");
+        $this->call("route:clear");
 
         // generate navigation
         $this->call("generate:navigation", ['name' => $name]);

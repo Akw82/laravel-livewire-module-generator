@@ -1,0 +1,14 @@
+
+        /**
+         * {{ module_name_lower_case }} permissions
+         */
+        '{{ lower_snake_case }}' => [
+            'create_{{ lower_snake_case }}' => 'Create {{ module_name_lower_case }}',
+            'edit_{{ lower_snake_case }}' => 'Edit {{ module_name_lower_case }}',
+            'edit_others_{{ lower_snake_case }}' => 'Edit others {{ module_name_lower_case }}',
+            'delete_{{ lower_snake_case }}' => 'Delete {{ module_name_lower_case }}',
+            'delete_others_{{ lower_snake_case }}' => 'Delete others {{ module_name_lower_case }}',
+            'force_delete_{{ lower_snake_case }}' => 'Delete {{ module_name_lower_case }}',
+            'force_delete_others_{{ lower_snake_case }}' => 'Force Delete others {{ module_name_lower_case }}',
+            'view_{{ lower_snake_case }}' => 'View {{ module_name_lower_case }}',
+        ],

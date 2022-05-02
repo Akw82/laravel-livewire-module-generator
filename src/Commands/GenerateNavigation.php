@@ -129,11 +129,10 @@ class GenerateNavigation extends GenerateContent
     {
 
         $output = new ConsoleOutput();
-        $output->writeln("<options=bold,reverse;fg=green> Executing generate:navigation command... </>");
+        $output->writeln("\n<options=bold,reverse;fg=green> Executing generate:navigation command... </>");
 
         $module_name = $this->getModuleName();
         $route_name = $this->getLowerKebabCase();
-
 
         if (!Route::has($route_name . '.index')) {
             $output->writeln("<options=bold;fg=red>ROUTE NOT AVAILABLE:</> " . "/" . $route_name);
@@ -150,5 +149,7 @@ class GenerateNavigation extends GenerateContent
                 ] + $links;
             });
         }
+
+        $output->writeln("\n<options=bold;fg=green>MODULE URL:</> " . env('APP_URL') . "/" . $this->getLowerKebabCase());
     }
 }

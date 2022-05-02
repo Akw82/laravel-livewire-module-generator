@@ -2,17 +2,20 @@
 
 namespace App\Http\Livewire\{{ model }};
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\{{ model }};
 use Livewire\Component;
 
 class Create extends Component
 {
 
+    use AuthorizesRequests;
+
     public $title;
     public $content;
     public $editable = false;
     public $response_message, $response_state = '';
-
+    public ${{ model }};
 
     /**
      * define rules dynamically and substitute the 
@@ -20,7 +23,6 @@ class Create extends Component
      */
     protected function rules()
     {
-
         $array = [];
         $array['title'] = 'required|string|min:4';
         $array['content'] = 'required|string|max:500';
@@ -35,11 +37,15 @@ class Create extends Component
      */
     public function mount({{ model }} ${{ model }})
     { 
-        if (${{ model }}->exists) {
+        $this->{{ model }} = ${{ model }};
+
+        $this->editable = request()->routeIs('{{ view }}.edit') ? true : false;
+
+        if($this->editable){
             $this->title = ${{ model }}->title;
             $this->content = ${{ model }}->content;
-            $this->editable = ${{ model }};
         }
+
     }
 
 
@@ -49,26 +55,40 @@ class Create extends Component
     public function save()
     {
 
+        $this->authorize('create', $this->{{ model }});
+
         $this->validate();
 
-        if ($this->editable) {
-            $this->editable->title = $this->title;
-            $this->editable->content = $this->content;
-            if ($this->editable->save()) {
-                $this->response_state = 'SUCCESS!';
-                $this->response_message = $this->title . ' has updated successfully.';
-            }
-        } else {
-
-            $item = new {{ model }};
-            $item->title = $this->title;
-            $item->content = $this->content;
-            if ($item->save()) {
-                $this->response_state = 'SUCCESS!';
-                $this->response_message = $this->title . ' has created successfully.';
-                $this->reset('title', 'content');
-            }
+        $item = new {{ model }};
+        $item->title = $this->title;
+        $item->content = $this->content;
+        if ($item->save()) {
+            $this->response_state = 'SUCCESS!';
+            $this->response_message = $this->title . ' has created successfully.';
+            $this->reset('title', 'content');
         }
+    }
+
+
+
+    /**
+     * update form data.
+     */
+    public function update()
+    {
+
+        $this->authorize('update', $this->{{ model }});
+
+        $this->validate();
+
+        $this->{{ model }}->title = $this->title;
+        $this->{{ model }}->content = $this->content;
+
+        if ($this->{{ model }}->save()) {
+            $this->response_state = 'SUCCESS!';
+            $this->response_message = $this->title . ' has updated successfully.';
+        }
+
     }
 
 

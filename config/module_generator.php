@@ -25,4 +25,18 @@ return [
     */
 
     'navigation_path' => resource_path('views/links.json'),
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | User permissions seeder path
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the path to the user permissions seeder path.
+    | Example: database_path('seeders/PermissionsSeeder.php')
+    |
+    */
+
+    'user_permissions_seeder_path' => database_path('seeders/PermissionsSeeder.php'),
 ];

@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+
+class PermissionsSeeder extends Seeder
+{
+
+    protected $data = [];
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        foreach ($this->data as $model => $permissions) {
+            foreach ($permissions as $name => $desc) {
+                $permission = Permission::firstOrCreate(['name' => $name, 'guard_name' => 'admin']);
+                // $permission->update(['description' => $desc, 'model' => $model]);
+                $permission->save();
+            }
+        }
+    }
+}

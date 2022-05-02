@@ -16,7 +16,7 @@
 
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
-                    <form wire:submit.prevent="save" class="needs-validation">
+                    <form wire:submit.prevent="{{ $editable ? 'update' : 'save' }}" class="needs-validation">
 
                         <div class="mb-6">
                             <label for="title" class="block mb-2 text-md font-bold text-gray-900 dark:text-gray-500"> Title </label>

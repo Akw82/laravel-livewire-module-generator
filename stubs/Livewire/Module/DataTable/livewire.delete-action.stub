@@ -5,9 +5,12 @@ namespace App\Http\Livewire\{{ model }}\DataTable;
 use App\Models\{{ model }};
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 trait WithDeleteAction
 {
+
+    use AuthorizesRequests;
 
     /**
      * Indicates if deletion is being confirmed.
@@ -38,17 +41,9 @@ trait WithDeleteAction
     public function delete(Request $request, {{ model }} $deleter, StatefulGuard $auth)
     {
 
-        // $team = $auth->user()->currentTeam;
-        // $request->user()->teamPermissions($team);
-        // $auth->user()->hasTeamPermission($server->team, 'server:update');
+        $this->authorize('delete', $deleter);
 
         $this->resetErrorBag();
-
-        // if (!Hash::check($this->password, Auth::user()->password)) {
-        //     throw ValidationException::withMessages([
-        //         'password' => [__('This password does not match our records.')],
-        //     ]);
-        // }
 
         if ($deleter->delete()) {
             $this->showDeleteModel = false;

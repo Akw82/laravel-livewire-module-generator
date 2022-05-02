@@ -1,0 +1,7 @@
+
+            // {{pluralSnake}} permissions
+            'edit_{{pluralSnake}}',
+            'delete_{{pluralSnake}}',
+            'edit_others_{{pluralSnake}}',
+            'delete_others_{{pluralSnake}}',
+            'view_{{pluralSnake}}',

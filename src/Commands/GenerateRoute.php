@@ -79,6 +79,5 @@ class GenerateRoute extends GenerateContent
         );
 
         $output->writeln("<fg=green>Route created.</> \n");
-        $output->writeln("<options=bold;fg=green>MODULE URL:</> " . env('APP_URL') . "/" . $this->getLowerKebabCase());
     }
 }

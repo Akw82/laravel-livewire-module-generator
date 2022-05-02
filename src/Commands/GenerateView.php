@@ -89,6 +89,7 @@ class GenerateView extends GenerateContent
             $replace_strings = [
                 'module' => $module_name,
                 'index' => $lower_kebab_case . '.index',
+                'create' => $lower_kebab_case . '.create',
             ]
         );
 
