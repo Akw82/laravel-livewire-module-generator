@@ -63,6 +63,7 @@ class GenerateView extends GenerateContent
         $module_name = $this->getModuleName();
         $pascal_case = $this->getPascalCase();
         $lower_kebab_case = $this->getLowerKebabCase();
+        $lower_snake_case = $this->getLowerSnakeCase();
 
         /**
          * generate view files
@@ -78,6 +79,7 @@ class GenerateView extends GenerateContent
                 'index' => $lower_kebab_case . '.index',
                 'create' => $lower_kebab_case . '.create',
                 'edit' => $lower_kebab_case . '.edit',
+                'lower_snake_case' => $lower_snake_case,
             ]
         );
 
