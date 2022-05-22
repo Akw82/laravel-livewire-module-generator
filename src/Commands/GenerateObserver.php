@@ -56,7 +56,7 @@ class GenerateObserver extends GenerateContent
      */
     public function handle()
     {
-
+       
         $output = new ConsoleOutput();
         $output->writeln("<options=bold,reverse;fg=green> Executing generate:observer command... </>");
 
@@ -72,7 +72,7 @@ class GenerateObserver extends GenerateContent
                 'modelVariable' => $model_name,
             ]
         );
-
+       
         // registering observer service provider
         if (!file_exists(app_path("Providers/ObserverServiceProvider.php"))) {
 
@@ -81,7 +81,9 @@ class GenerateObserver extends GenerateContent
                 "Models/observer-service-provider.stub",
                 app_path("Providers"),
                 "ObserverServiceProvider.php",
-                $replace_strings = []
+                $replace_strings = [
+                    'ObserverServiceProvider' => 'ObserverServiceProvider'
+                ]
             );
 
             sleep(6);
