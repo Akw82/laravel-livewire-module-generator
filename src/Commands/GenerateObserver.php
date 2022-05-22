@@ -83,6 +83,8 @@ class GenerateObserver extends GenerateContent
                 "ObserverServiceProvider.php",
                 $replace_strings = []
             );
+
+            sleep(6);
         }
 
 
