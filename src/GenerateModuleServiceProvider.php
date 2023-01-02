@@ -49,6 +49,7 @@ class GenerateModuleServiceProvider extends ServiceProvider
              */
             $this->publishes([
                 __DIR__ . '/../config/module_generator.php' => config_path('module_generator.php'),
+                __DIR__ . '/../stubs' => base_path('stubs')
             ], 'config');
 
             /**
